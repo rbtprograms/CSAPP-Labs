@@ -55,6 +55,10 @@ bool q_insert_head(queue_t *q, int v)
 {
   // this makes no attempt to handle errors and assumes everything goes smoothly so sue me
   list_ele_t *ele = malloc(sizeof(list_ele_t));
+  //happens if malloc returns NULL because there is no memory available
+  if (!ele) {
+    return false;
+  }
   ele->value = v;
   ele->next = q->head;
   q->head = ele;
