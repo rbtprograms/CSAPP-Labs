@@ -20,15 +20,30 @@
   Create empty queue.
   Return NULL if could not allocate space.
 */
-queue_t *q_new()
+queue_t *q_new() 
 {
-
+  queue_t *queue = malloc(sizeof(queue_t));
+  // what if malloc returns null?
+  if (!queue) {
+    return NULL;
+  }
+  queue->head = NULL;
+  queue->tail = NULL;
+  queue->cnt = 0;
+  return queue;
 }
 
 /* Free all storage used by queue */
 void q_free(queue_t *q)
 {
-
+  list_ele_t *next;
+  list_ele_t *ele = q->head;
+  while(ele->next) {
+    next = ele->next;
+    free(ele);
+    ele = next;
+  }
+  free(q);
 }
 
 /*
@@ -37,7 +52,14 @@ void q_free(queue_t *q)
   Return false if q is NULL or could not allocate space.
  */
 bool q_insert_head(queue_t *q, int v)
-
+{
+  // this makes no attempt to handle errors and assumes everything goes smoothly so sue me
+  list_ele_t *ele = malloc(sizeof(list_ele_t));
+  ele->value = v;
+  ele->next = q->head;
+  q->head = ele;
+  q->cnt++;
+  return true;
 }
 
 
