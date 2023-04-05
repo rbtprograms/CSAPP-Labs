@@ -138,15 +138,5 @@ void q_reverse(queue_t *q)
 {
   /* You need to write the code for this function */
   //WORK IN PROGRESS
-  list_ele_t *cur = q->head;
-  list_ele_t *next = q->head->next;
-  list_ele_t *new_next;
-  for(; next; cur = next, next = new_next) {
-    new_next = next->next;
-    next->next = cur;
-  }
-  q->head->next = NULL;
-  q->tail = q->head;
-  q->head = cur;
 }
 
